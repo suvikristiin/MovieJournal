@@ -33,46 +33,10 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         String url = "https://www.finnkino.fi/xml/Events/";
-        moviesData = readXml(url);
+
+        MovieManager movieManager = new MovieManager();
+        moviesData = movieManager.readXml(url);
         System.out.println(moviesData);
 
-    }
-
-
-
-    public ArrayList<Movie> readXml(String url) {
-
-        try {
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document document = builder.parse(url);
-            document.getDocumentElement().normalize();
-            NodeList nodeList = document.getDocumentElement().getElementsByTagName("Event");
-            ArrayList<Movie> movies = new ArrayList<>();
-
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Node n = nodeList.item(i);
-                if (n.getNodeType() == n.ELEMENT_NODE) {
-                    Element element = (Element) n;
-                    String id = element.getElementsByTagName("ID").item(0).getTextContent();
-                    String title = element.getElementsByTagName("Title").item(0).getTextContent();
-                    Integer year = Integer.parseInt(element.getElementsByTagName("ProductionYear").item(0).getTextContent());
-                    String genre = element.getElementsByTagName("Genres").item(0).getTextContent();
-                    String imageUrl = element.getElementsByTagName("EventSmallImagePortrait").item(0).getTextContent();
-                    Movie movie = new Movie(id, title, year, genre, imageUrl);
-                    movies.add(movie);
-                }
-            }
-            return movies;
-
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } finally {
-
-        }
-        return null;
     }
 }
