@@ -15,7 +15,7 @@ public class MovieManager {
 
     public MovieManager() {}
 
-    public ArrayList<Movie> readXml(String url) {
+    public static ArrayList<Movie> readXml(String url) {
 
         try {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -38,7 +38,6 @@ public class MovieManager {
                 }
             }
             return movies;
-
         } catch (SAXException e) {
             e.printStackTrace();
         } catch (IOException e) {
