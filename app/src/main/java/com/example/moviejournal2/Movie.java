@@ -21,7 +21,7 @@ public class Movie {
     public String getTitle() {return title;}
     public String getID() {return id;}
     public Integer getYear() {return year;}
-    public String genre() {return genre;}
+    public String getGenre() {return genre;}
     public String getImageUrl() {return imageUrl;}
 
 }
