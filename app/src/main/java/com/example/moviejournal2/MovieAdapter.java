@@ -1,9 +1,9 @@
 package com.example.moviejournal2;
 
-import android.content.Context;
-import android.graphics.Bitmap;
+import static com.squareup.picasso.Picasso.*;
 
-import android.graphics.BitmapFactory;
+import android.content.Context;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,21 +14,21 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Instant;
+
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MovieAdapter extends ArrayAdapter<Movie> {
+    Context context;
+    ArrayList<Movie> moviesData;
 
-    public MovieAdapter(@NonNull Context context, ArrayList<Movie> movieData) {
-        super(context, 0,movieData);
+    public MovieAdapter(Context context, ArrayList<Movie> moviesData) {
+        super(context, 0,moviesData);
+        this.context = context;
+        this.moviesData = moviesData;
 
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -49,8 +49,12 @@ public class MovieAdapter extends ArrayAdapter<Movie> {
         year.setText("Vuosi: "+ currentMovie.getYear());
 
 
+        Picasso.get().load(currentMovie.getImageUrl()).into(image);
 
         return listItem;
+
     }
+
 }
+
 
